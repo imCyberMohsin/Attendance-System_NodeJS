@@ -1,0 +1,211 @@
+/*? Root Page CSS  */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+:root {
+    --primary-accent-color: #0068d0;
+    --secondary-accent-color: crimson;
+    --font-color: #2f2f2f;
+}
+
+::selection {
+    background-color: var(--primary-accent-color);
+    color: white;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: #2f2f2f;
+    background-image: url('../images/root-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-container {
+    border-bottom: 2px solid var(--secondary-accent-color);
+    /* background-color: transparent; */
+    backdrop-filter: blur(2px);
+    height: 6vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6%;
+}
+
+/*? Logo */
+.nav-container .logo h1 {
+    color: var(--font-color);
+    font-size: 2vw;
+}
+
+.nav-container .logo h1 span {
+    color: var(--secondary-accent-color);
+}
+
+/*? NavItems  */
+.nav-container .navItems {
+    width: 40%;
+    margin: 0 5%;
+}
+
+.nav-container .navItems ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-container .navItems ul li {
+    padding: 2%;
+}
+
+.nav-container .navItems ul li a {
+    text-decoration: none;
+    color: var(--secondary-accent-color);
+    font-size: 1.5vw;
+    font-weight: 700;
+    padding: 6%;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-container .navItems ul li a:hover {
+    color: var(--primary-accent-color);
+}
+
+.nav-container .navItems ul li a:focus {
+    color: var(--primary-accent-color);
+}
+
+/*? Dropdown Button  */
+.nav-container .dropdownBtn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    /* dropdown button hidden */
+    display: none;
+}
+
+.nav-container .dropdownBtn i {
+    font-size: 2.7vw;
+    transition: all 0.1s ease-in-out;
+}
+
+.nav-container .dropdownBtn i:hover {
+    color: var(--primary-accent-color);
+}
+
+
+/*? Main */
+.main {
+    margin: auto 6%;
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.main h1 {
+    color: var(--secondary-accent-color);
+    font-size: 5vw;
+    line-height: 0.9;
+}
+
+.main .btn {
+    width: 15%;
+    margin: 2% 0;
+    backdrop-filter: blur(1px);
+    border: 3px solid var(--primary-accent-color);
+    color: var(--secondary-accent-color);
+    text-decoration: none;
+    padding: 0.5% 1%;
+    border-radius: 20px;
+    font-size: 1.6vw;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.main .btn:active {
+    background-color: rgb(173, 18, 49);
+    color: var(--primary-accent-color);
+}
+
+/* Displaying The Dropdown Button in Media Query For Mobile & Tablet */
+@media screen and (max-width:480px) {
+    .main h1 {
+        font-size: 10vw;
+    }
+
+    .main .btn {
+        border: 2px solid var(--primary-accent-color);
+    }
+}
+
+@media screen and (max-width:900px) {
+    .nav-container {
+        height: 8vw;
+    }
+
+    .nav-container .logo h1 {
+        font-size: 2.6vw;
+    }
+
+    .nav-container .dropdownBtn {
+        /* unhide the dropdown button */
+        display: block;
+    }
+
+    .nav-container .navItems {
+        /* Initially height of the navbar */
+        height: 0vw;
+        width: 100vw;
+        position: absolute;
+        top: 8vw;
+        left: 0;
+        right: 0;
+        margin: 0;
+        background-color: #fff;
+        transition: 0.2s ease-in-out;
+        overflow: hidden;
+    }
+
+    .nav-container .navItems.unhideItems {
+        height: 35vw;
+    }
+
+    .nav-container .items {
+        display: block;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        /* hiding the navItems */
+        opacity: 0;
+    }
+
+    .nav-container .navItems.unhideItems .items {
+        opacity: 1;
+        height: inherit;
+        color: var(--font-color);
+    }
+
+    .nav-container .navItems .items li a {
+        font-size: 1rem;
+    }
+
+    .main h1 {
+        font-size: 10vw;
+    }
+
+    .main .btn {
+        border: 2px solid var(--primary-accent-color);
+    }
+}
