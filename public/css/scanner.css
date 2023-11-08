@@ -53,8 +53,9 @@ button {
     transition: all 0.3s ease-in-out;
 }
 
-button:hover{
+button:hover {
     background-color: #00cd00;
+    color: white;
 }
 
 /*? Attendance Captured Text  */
@@ -62,6 +63,29 @@ button:hover{
     color: var(--accent-color);
     font-size: 2vw;
     font-weight: 600;
+}
+
+/*? Home Btn */
+.homeBtn {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    /* width: 15%; */
+    /* margin: 2% 0; */
+    backdrop-filter: blur(1px);
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    padding: 0.5% 1%;
+    border-radius: 15px;
+    font-size: 1.6vw;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.homeBtn:hover {
+    background-color: var(--accent-color);
 }
 
 

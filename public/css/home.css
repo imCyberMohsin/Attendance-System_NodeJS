@@ -17,7 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     /* background-color: #2f2f2f; */
-    background: url("https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fG1pbmltYWwlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60") no-repeat;
+    background: url("https://i.pcmag.com/imagery/articles/01K7hHs7GpQBT70XqA5hFfc-1.fit_lim.size_1600x900.v1625668969.jpg") no-repeat;
     background-position: center;
     background-size: cover;
 }
@@ -86,7 +86,7 @@ body {
 
 .box-content a:hover {
     background-color: white;
-    color: #649099;
+    color: #04A3A3;
 }
 
 
@@ -111,7 +111,7 @@ body {
 
 .logoutBtn:hover {
     background-color: white;
-    color: #649099;
+    color: #04A3A3;
 }
 
 

@@ -31,19 +31,46 @@ app.get('/home', (req, res) => {
 })
 
 //? Scanner Route
+// GET
 app.get('/scanner', (req, res) => {
     res.render('scanner.ejs');
 })
+// POST : copied from chatGPT - remove or edit if error
+// Endpoint to handle scanned data from the face scanner
+app.post('/scanneddata', async (req, res) => {
+    try {
+        const { name, dateTime } = req.body;
+        // Check if the scanned data already exists in the database to avoid duplication
+        const existingData = await ScannedData.findOne({ name: name, dateTime: dateTime });
+        if (existingData) {
+            // If the data already exists, send a response indicating that the data is a duplicate
+            res.status(409).send('Scanned data already exists');
+        } else {
+            // If the data does not exist, save it to the database
+            const newScannedData = new ScannedData({
+                name: name,
+                dateTime: dateTime
+            });
+            await newScannedData.save();
+            res.status(200).send('Scanned data saved successfully');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error saving scanned data');
+    }
+});
 
 //! view Report Route
-app.get('/report', (req, res) => {
-    res.render('report.ejs');
+app.get('/viewReport', (req, res) => {
+    res.render('viewReport.ejs');
 })
 
 //? Login Route
+// GET
 app.get('/login', (req, res) => {
     res.render('login.ejs')
 })
+// POST
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -60,10 +87,11 @@ app.post('/login', async (req, res) => {
 });
 
 //? Register Route
+// GET
 app.get('/register', (req, res) => {
     res.render('register.ejs')
 })
-
+// POST
 app.post('/register', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
