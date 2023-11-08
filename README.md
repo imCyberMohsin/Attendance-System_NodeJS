@@ -29,7 +29,6 @@
 
 
 # Works ToDo....
-Add validations to login page
-Store the login credentials
 add More face data, max-100
-change attendace download location to local folder
+make frontend to view attendance report
+Store scanned face data into database instead of json file.

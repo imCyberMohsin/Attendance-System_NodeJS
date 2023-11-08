@@ -44,13 +44,20 @@ app.get('/report', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login.ejs')
 })
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
     try {
-        res.redirect('/home');
-    } catch {
-        res.redirect('/register')
+        const user = await userModel.findOne({ email: email });
+        if (user && (await bcrypt.compare(password, user.password))) {
+            res.redirect('/home');
+        } else {
+            res.redirect('/login');
+        }
+    } catch (error) {
+        console.error(error);
+        res.redirect('/login');
     }
-})
+});
 
 //? Register Route
 app.get('/register', (req, res) => {
@@ -68,7 +75,7 @@ app.post('/register', async (req, res) => {
         await newUser.save();
         // Save the new user to the database
 
-        res.redirect('/home');     // Redirect to login page or HomePage if Registration is successful
+        res.redirect('/login');     // Redirect to login page or if Registration is successful
         // console.log(newUser);
     } catch {
         res.redirect('/register');  // Redirect to Register page if Registration failed 
