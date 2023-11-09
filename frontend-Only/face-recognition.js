@@ -20,10 +20,10 @@ let alreadyDisplayed = false;
 //! Using Promise
 Promise.all([
   //? Loading required face-api.js models 
-  faceapi.nets.ssdMobilenetv1.loadFromUri('../models'),
+  faceapi.nets.ssdMobilenetv1.loadFromUri('./models'),
   // faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('../models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('../models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
+  faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
   // faceapi.nets.faceExpressionNet.loadFromUri('./models'),
   // console.log("All Models Loaded Successfully, Loading WebCam..."),
 ]).then(startWebcam);
@@ -60,7 +60,7 @@ function getLabeledFaceDescriptions() {
 
       // Iterate over each image for the current label (usually 2 images per individual)
       for (let i = 1; i <= 2; i++) {
-        const image = await faceapi.fetchImage(`../labels/${label}/${i}.jpg`); // wait untill the images are loaded or accessed
+        const image = await faceapi.fetchImage(`./labels/${label}/${i}.jpg`); // wait untill the images are loaded or accessed
 
         // Detect a single face with face landmarks and descriptors
         const detections = await faceapi

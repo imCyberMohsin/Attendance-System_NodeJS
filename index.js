@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const userModel = require('./models/users'); // User DB Model
+const userModel = require('./routes/users'); // User DB Model
 const bcrypt = require('bcrypt'); // Module for Password Hashing & Salting
 
 // Connect to MongoDB
