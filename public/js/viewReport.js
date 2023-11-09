@@ -1,3 +1,4 @@
+//* View Attendance Report JS 
 document.addEventListener("DOMContentLoaded", function () {
     fetch("../data/attendance.json")
         .then(response => response.json())

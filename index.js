@@ -1,8 +1,8 @@
-//! Passport Login System Server
+//! Attendance System Server
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const userModel = require('./routes/users'); // User DB Model
+const userModel = require('./models/users'); // User DB Model
 const bcrypt = require('bcrypt'); // Module for Password Hashing & Salting
 
 // Connect to MongoDB
@@ -37,7 +37,7 @@ app.get('/scanner', (req, res) => {
 })
 // POST : copied from chatGPT - remove or edit if error
 // Endpoint to handle scanned data from the face scanner
-app.post('/scanneddata', async (req, res) => {
+app.post('/scanner', async (req, res) => {
     try {
         const { name, dateTime } = req.body;
         // Check if the scanned data already exists in the database to avoid duplication
@@ -93,21 +93,32 @@ app.get('/register', (req, res) => {
 })
 // POST
 app.post('/register', async (req, res) => {
+    const { name, email, password } = req.body;
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        // Check if a user with the same name or email already exists
+        const existingUser = await userModel.findOne({ $or: [{ name: name }, { email: email }] });
+
+        if (existingUser) {
+            // If a user with the same name or email already exists, redirect to the registration page
+            return res.redirect('/register');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
         let newUser = new userModel({
-            name: req.body.name,
-            email: req.body.email,
+            name: name,
+            email: email,
             password: hashedPassword,
         });
         await newUser.save();
         // Save the new user to the database
 
-        res.redirect('/login');     // Redirect to login page or if Registration is successful
+        res.redirect('/login');     // Redirect to login page if Registration is successful
         // console.log(newUser);
-    } catch {
+    } catch (error) {
+        console.error(error);
         res.redirect('/register');  // Redirect to Register page if Registration failed 
     }
-})
+});
+
 
 app.listen(3000);
