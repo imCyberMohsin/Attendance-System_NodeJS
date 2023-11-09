@@ -1,5 +1,4 @@
 /*? Root Page CSS  */
-
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +20,7 @@
 body {
     width: 100%;
     height: 100vh;
-    background-color: #2f2f2f;
+    background-color: var(--font-color);
     background-image: url('../images/root-bg.jpg');
     background-position: center;
     background-size: cover;
@@ -95,6 +94,7 @@ body {
 }
 
 .nav-container .dropdownBtn i {
+    color: var(--secondary-accent-color);
     font-size: 2.7vw;
     transition: all 0.1s ease-in-out;
 }
@@ -135,7 +135,7 @@ body {
 }
 
 .main .btn:active {
-    background-color: rgb(173, 18, 49);
+    background-color: #ad1231;
     color: var(--primary-accent-color);
 }
 
@@ -147,6 +147,10 @@ body {
 
     .main .btn {
         border: 2px solid var(--primary-accent-color);
+    }
+
+    .nav-container .items {
+        background-color: var(--font-color);
     }
 }
 
@@ -189,6 +193,7 @@ body {
         align-items: center;
         /* hiding the navItems */
         opacity: 0;
+        background-color: var(--font-color);
     }
 
     .nav-container .navItems.unhideItems .items {
