@@ -4,6 +4,7 @@
 const video = document.querySelector("#video");
 let attendanceData = [];      // for json file
 let alreadyDisplayed = false;
+let result;  // Variable to store the scanned name
 
 
 //! Display API
@@ -90,11 +91,37 @@ const saveAttendanceData = () => {
   // console.log('Attendance data saved!');
 };
 
-//? Event Listener Download on Click.
+//! Function to send attendance data to the server and save it to MongoDB
+const saveAttendanceToMongoDB = async () => {
+  try {
+    // console.log('Data to send:', attendanceData);
+
+    const response = await fetch('/scanner', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attendanceData }),
+    });
+
+    if (response.ok) {
+      console.log('Attendance data saved to MongoDB!');
+      // You can optionally clear the local attendanceData array here if needed
+      // attendanceData = [];
+    } else {
+      console.error('Failed to save attendance data to MongoDB');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Event listener for the "Download Attendance" button
 const downloadBtn = document.querySelector('#downloadButton');
 downloadBtn.addEventListener('click', () => {
-  saveAttendanceData();
-})
+  // saveAttendanceData(); // Save data to JSON file
+  saveAttendanceToMongoDB(); // Save data to MongoDB
+});
 
 //! Event listener for when the video starts playing
 video.addEventListener('play', async () => {
@@ -116,7 +143,7 @@ video.addEventListener('play', async () => {
 
     resizedDetections.forEach((detection) => {
       const fullResult = faceMatcher.findBestMatch(detection.descriptor).toString();
-      const result = fullResult.substring(0, fullResult.indexOf('(')).trim();
+      result = fullResult.substring(0, fullResult.indexOf('(')).trim();
 
       //* Show Face-Square for "unknown" faces. 
       const box = detection.detection.box;
@@ -130,8 +157,9 @@ video.addEventListener('play', async () => {
 
         let displayTimer;
         if (!attendanceData.find((entry) => entry.name === result)) {
-          const formattedDate = new Date().toLocaleString('en-US', { hour12: true });
-          attendanceData.push({ name: result, dateTime: formattedDate });
+          console.log("Scanned Name =", result);
+          attendanceData.push({ name: result });
+
           if (!alreadyDisplayed) {
             const messageDiv = document.createElement('div');
             messageDiv.textContent = 'ATTENDANCE CAPTURED';
@@ -162,6 +190,5 @@ video.addEventListener('play', async () => {
         }
       }
     });
-
   }, 500);   // Interval in milliseconds
-})
+});

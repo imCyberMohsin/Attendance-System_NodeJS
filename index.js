@@ -3,7 +3,8 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const userModel = require('./models/users'); // User DB Model
-const bcrypt = require('bcrypt'); // Module for Password Hashing & Salting
+const AttendanceModel = require('./models/attendance'); // attendance DB Model
+const bcrypt = require('bcrypt'); // Module for Password Hashing
 
 // Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/AttendanceSystem');
@@ -17,6 +18,9 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 // EJS Setup
 app.set('view-engine', 'ejs');
+
+// Middleware to parse JSON
+app.use(express.json());
 
 //! Routes 
 //? Root Route
@@ -35,30 +39,35 @@ app.get('/home', (req, res) => {
 app.get('/scanner', (req, res) => {
     res.render('scanner.ejs');
 })
-// POST : copied from chatGPT - remove or edit if error
-// Endpoint to handle scanned data from the face scanner
+// POST
+// Route To Send Scanned Names Data From Server To MongoDB
 app.post('/scanner', async (req, res) => {
+    const { attendanceData } = req.body;
+    console.log('Received data:', req.body);
+
     try {
-        const { name, dateTime } = req.body;
-        // Check if the scanned data already exists in the database to avoid duplication
-        const existingData = await ScannedData.findOne({ name: name, dateTime: dateTime });
-        if (existingData) {
-            // If the data already exists, send a response indicating that the data is a duplicate
-            res.status(409).send('Scanned data already exists');
-        } else {
-            // If the data does not exist, save it to the database
-            const newScannedData = new ScannedData({
-                name: name,
-                dateTime: dateTime
-            });
-            await newScannedData.save();
-            res.status(200).send('Scanned data saved successfully');
+        // Assuming attendanceData is an array of objects with 'name' and 'dateTime'
+        for (const entry of attendanceData) {
+            // Check if the name is 'unknown' or already exists in the database
+            if (entry.name !== 'unknown') {
+                const existingEntry = await AttendanceModel.findOne({ name: entry.name });
+
+                if (!existingEntry) {
+                    // If the name doesn't exist, insert the entry
+                    await AttendanceModel.create(entry);
+                }
+            }
         }
+
+        // Respond with success status
+        res.status(200).send('Attendance data saved to MongoDB!');
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error saving scanned data');
+        console.error('Error saving attendance data to MongoDB:', error);
+        // Respond with an error status
+        res.status(500).send('Internal Server Error');
     }
 });
+
 
 //! view Report Route
 app.get('/viewReport', (req, res) => {
