@@ -48,7 +48,6 @@
         <section class="main">
             <div class="main-top">
                 <h1>Attendance</h1>
-                <i class="fas fa-user-cog"></i>
             </div>
             <section class="attendance">
                 <div class="attendance-list">
@@ -60,39 +59,24 @@
                                 <th>Name</th>
                                 <th>Depart</th>
                                 <th>Date & Time</th>
-                                <th>Details</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Mohsin Ansari</td>
-                                <td>BCA</td>
-                                <td>03-24-22 | 8:00AM</td>
-                                <td><button>View</button></td>
-                            </tr>
-                            <tr class="active">
-                                <td>02</td>
-                                <td>Pranab Ghosh</td>
-                                <td>BCA</td>
-                                <td>03-24-22 | 9:00AM</td>
-                                <td><button>View</button></td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>Mirab Habib</td>
-                                <td>BCA</td>
-                                <td>03-24-22 | 8:00AM</td>
-                                <td><button>View</button></td>
-                            </tr>
-                            <tr>
-                                <td>04</td>
-                                <td>Shakil Raj</td>
-                                <td>BCA</td>
-                                <td>03-24-22 | 8:00AM</td>
-                                <td><button>View</button></td>
-                            </tr>
-
+                            <% for (const oneEntry of attendanceData) { %>
+                                    <tr>
+                                        <td><%= oneEntry.id %></td>
+                                        <td><%= oneEntry.name %></td>
+                                        <td><%= oneEntry.department %></td>
+                                        <td><%= oneEntry.dateTime %></td>
+                                        <td>
+                                            <form action="/deleteEntry" method="POST">
+                                                <input type="hidden" name="entryId" value="<%= oneEntry.id %>"> <!-- This is a hidden field which is storing entry ID to be deleted. -->
+                                                <button type="submit">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } %>
                         </tbody>
                     </table>
                 </div>
@@ -102,7 +86,7 @@
 
     <a class="homeBtn" href="/home">HOME</a>
 
-    <script defer src="../js/viewReport.js"></script>
+    <!-- <script defer src="../js/viewReport.js"></script> -->
 </body>
 
 </html>

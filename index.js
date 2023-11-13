@@ -68,11 +68,34 @@ app.post('/scanner', async (req, res) => {
     }
 });
 
-
-//! view Report Route
-app.get('/viewReport', (req, res) => {
-    res.render('viewReport.ejs');
+//? ViewReport Route 
+// viewReport Route (Display attendance from MongoDB)
+app.get('/viewReport', async (req, res) => {
+    try {
+        // Fetch all entries from the AttendanceModel
+        const allEntries = await AttendanceModel.find();
+        res.render('viewReport.ejs', { attendanceData: allEntries }); // Passing attendanceData to EJS
+    } catch (error) {
+        console.error('Error Fetching Attendance Data', error)
+        res.status(500).send('Internal Server Error');
+    }
 })
+// Delete an Attendance Entry from the DB
+app.post('/deleteEntry', async (req, res) => {
+    const { entryId } = req.body;
+
+    try {
+        // Find the entry by ID and delete it
+        await AttendanceModel.findOneAndDelete({ id: entryId });
+
+        // Redirect back to the viewReport page after deletion
+        res.redirect('/viewReport');
+    } catch (error) {
+        console.error('Error deleting entry:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 //? Login Route
 // GET
