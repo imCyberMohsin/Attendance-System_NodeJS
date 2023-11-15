@@ -4,7 +4,8 @@
   "description": "Attendance-System Minor-Project Using Face-Recognition. ",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node index.js"
   },
   "author": "Mohsin",
   "license": "ISC",
