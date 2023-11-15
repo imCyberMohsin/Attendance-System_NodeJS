@@ -1,4 +1,5 @@
 //! Attendance System Server
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -7,7 +8,8 @@ const AttendanceModel = require('./models/attendance'); // attendance DB Model
 const bcrypt = require('bcrypt'); // Module for Password Hashing
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/AttendanceSystem');
+// mongoose.connect('mongodb://127.0.0.1:27017/AttendanceSystem');      // Local MongoDB
+mongoose.connect(process.env.MONGO_URL);                                // Cloud MongoDB
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.on('open', () => console.log("Connected To DB"));
