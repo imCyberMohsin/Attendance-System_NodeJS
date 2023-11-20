@@ -51,7 +51,7 @@ function startWebcam() {
 // console.log("Now Loading FaceDescriptor...");
 function getLabeledFaceDescriptions() {
   // Names of individuals from the 'labels' folder
-  const labels = ["Messi", "Mohsin", "Saman"];
+  const labels = ["Messi", "Mohsin", "Saman", "Pranab Ghosh", "Sanjal Pal"];
 
   // Promise to handle loading descriptions for each label
   return Promise.all(
