@@ -16,8 +16,9 @@
 
 ## Installation
 ```bash
-   ~ git clone https://github.com/imCyberMohsin/Attendance-System_NodeJS.git
-   ~ cd Attendance-System_NodeJS
+   git clone https://github.com/imCyberMohsin/Attendance-System_NodeJS.git
+   cd Attendance-System_NodeJS
+   npm i
 ```
 ```### Install Node Dependencies : ~ npm install
 Setup Node & MongoDB Locally
