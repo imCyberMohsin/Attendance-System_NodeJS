@@ -17,7 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     /* background-color: #2f2f2f; */
-    background: url("https://i.pcmag.com/imagery/articles/01K7hHs7GpQBT70XqA5hFfc-1.fit_lim.size_1600x900.v1625668969.jpg") no-repeat;
+    background: url("https://images.unsplash.com/photo-1504610926078-a1611febcad3?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat;
     background-position: center;
     background-size: cover;
 }
@@ -25,7 +25,7 @@ body {
 /*? Home Page */
 /*? Container */
 .box {
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
     width: 45%;
     height: 52vh;
     border: 2px solid white;
