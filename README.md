@@ -29,7 +29,7 @@ Download & Install MongoDB Server Locally
 
 *OR Setup MongoAtlas Server and then follow the below steps*
 1.Create .env file in the root directory
-2.Create a variable 'MONGO_URL' in the .env file and paste the mongoAtlas connection URL.
+2.Create a variable 'MONGO_URL' in the .env file and paste the mongoAtlas connection URL. 
 ```
 
 ## Usage
